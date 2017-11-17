@@ -54,7 +54,7 @@ def main():
 
     Creates a Sheets API service object and prints the names and majors of
     students in a sample spreadsheet:
-    https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
+    https://docs.google.com/spreadsheets/d/1M_r89zHsPhTGJnXcYWZIqkSkufaVn16c-rP0Lx6Zxa4/edit
     """
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
@@ -63,8 +63,8 @@ def main():
     service = discovery.build('sheets', 'v4', http=http,
                               discoveryServiceUrl=discoveryUrl)
 
-    spreadsheetId = '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms'
-    rangeName = 'Class Data!A2:E'
+    spreadsheetId = '1M_r89zHsPhTGJnXcYWZIqkSkufaVn16c-rP0Lx6Zxa4'
+    rangeName = 'Sheet1!A2:C'
     result = service.spreadsheets().values().get(
         spreadsheetId=spreadsheetId, range=rangeName).execute()
     values = result.get('values', [])
@@ -72,10 +72,10 @@ def main():
     if not values:
         print('No data found.')
     else:
-        print('Name, Major:')
+        print('Name, Favorite Color, Favorite Beer:')
         for row in values:
-            # Print columns A and E, which correspond to indices 0 and 4.
-            print('%s, %s' % (row[0], row[4]))
+            # Print columns A and C, which correspond to indices 0 and 2.
+            print('%s, %s, %s' % (row[0], row[1], row[2]))
 
 
 if __name__ == '__main__':
